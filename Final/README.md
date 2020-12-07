@@ -8,4 +8,4 @@
 
 |-- standard/ -> Python code for reading from ADC and witing to csv file
 
-|--- standard/ -> Folder for standard output files [date].csv
+|--- saveData/ -> Folder for standard output files [date].csv
