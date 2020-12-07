@@ -1,2 +1,5 @@
-# ME450Team27FA2020
-Team 27 Sensor Code  - Python
+# Adruino Code
+
+ADC Code supplied from Maxim Integraded and modified for our use
+
+Uploaded .ino sketch to Arduino UNO
