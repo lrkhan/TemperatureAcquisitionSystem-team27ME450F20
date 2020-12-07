@@ -1,2 +1,5 @@
-# ME450Team27FA2020
-Team 27 Sensor Code  - Python
+# oldCode
+
+Old Pyhton code used for refences and as a sandpit to test code
+
+|- spiFiles/ -> Python code to communite with the ADC via SPI Protocall
