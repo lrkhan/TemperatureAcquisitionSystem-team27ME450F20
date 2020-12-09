@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def get_data():
 
-    batch_pre = np.array([[19.38, 18.90, 19.14, 19.54],
+    batch_1_pre = np.array([[19.38, 18.90, 19.14, 19.54],
                           [19.86, 18.59, 17.35, 19.33],
                           [19.71, 19.12, 19.51, 19.63],
                           [19.06, 19.24, 19.79, 19.56],
@@ -13,6 +13,26 @@ def get_data():
                           [18.37, 19.84, 19.62, 19.20],
                           [19.58, 19.53, 19.49, 19.55],
                           [18.10, 18.83, 19.49, 19.32]])
+
+    batch_2_pre = np.array([[18.61,	18.98,	18.88,	19.28],
+                          [19.47,	19.51,	19.43,	19.06],
+                          [19.38,	19.05,	18.72,	17.72],
+                          [18.90,	18.78,	18.88,	19.24],
+                          [19.33,	19.39,	19.44,	18.93],
+                          [19.04,	19.24,	19.12,	19.50],
+                          [19.23,	19.39,	19.19,	19.52],
+                          [19.33,	19.39,	19.43,	19.47],
+                          [18.04,	16.02,	19.49,	13.79]])
+
+    batch_3_pre = np.array([[19.34,	19.33,	19.03,	19.55],
+                          [19.83,	18.87,	19.26,	18.27],
+                          [17.88,	19.82,	18.22,	19.62],
+                          [19.38,	19.10,	17.45,	16.00],
+                          [17.38,	17.80,	19.20,	19.00],
+                          [18.30,	19.60,	18.49,	19.52],
+                          [19.26,	18.72,	19.28,	18.58],
+                          [19.00,	19.24,	19.30,	19.50],
+                          [19.35,	19.45,	19.37,	19.39]])
 
     batch_1_sol = np.array([[19.13, 19.22, 19.31, 19.32],
                             [19.31, 19.29, 19.32, 19.35],
@@ -44,7 +64,8 @@ def get_data():
                             [19.23, 19.30, 19.27, 19.46],
                             [19.27, 19.46, 19.46, 19.48]])
 
-    batch_sol = np.stack((batch_1_sol, batch_2_sol, batch_3_sol), axis=0)
+    batch_sol = np.stack((batch_1_sol, batch_2_sol, batch_3_sol), axis = 0)
+    batch_pre = np.stack((batch_1_pre, batch_2_pre, batch_3_pre), axis = 0)
 
     return batch_sol,batch_pre
 
@@ -68,7 +89,7 @@ def warpage_prevention(batch_sol, batch_pre):
     print(f"[solution batch]:{np.count_nonzero(batch_part_corner_deviation_percent_sol <= passing_percent)}/108 measurements is below {passing_percent}% pecent warpage")
 
     # median corner height. shape = (1,1) [initial batch]
-    batch_median_pre = np.median(batch_pre, axis=1, keepdims=True)
+    batch_median_pre = np.median(batch_pre, axis=(1,2), keepdims=True)
 
     # deviation of each corner of each part from the median corner height [initial batch]
     batch_part_corner_deviation_pre = batch_pre - batch_median_pre
@@ -77,12 +98,12 @@ def warpage_prevention(batch_sol, batch_pre):
     batch_part_corner_deviation_percent_pre = np.abs(batch_part_corner_deviation_pre / batch_median_pre) * 100
 
     print(
-        f"[initial batch]:{np.count_nonzero(batch_part_corner_deviation_percent_pre <= passing_percent)}/36 measurements is below {passing_percent}% pecent warpage")
+        f"[initial batch]:{np.count_nonzero(batch_part_corner_deviation_percent_pre <= passing_percent)}/108 measurements is below {passing_percent}% pecent warpage")
 
     for i in range(1,5):
         batch_part_corner_deviation_percent_top_i_sol = np.sort(batch_part_corner_deviation_percent_sol, axis=2)[:, :,-i:]
         top_i_warpage_percent_sol = np.mean(batch_part_corner_deviation_percent_top_i_sol)
-        batch_part_corner_deviation_percent_top_i_pre = np.sort(batch_part_corner_deviation_percent_pre, axis=1)[:,-i:]
+        batch_part_corner_deviation_percent_top_i_pre = np.sort(batch_part_corner_deviation_percent_pre, axis=2)[:,:,-i:]
         top_i_warpage_percent_pre = np.mean(batch_part_corner_deviation_percent_top_i_pre)
         print(top_i_warpage_percent_sol,top_i_warpage_percent_pre)
         warpage_percent_improvement_top_i = np.abs(top_i_warpage_percent_sol - top_i_warpage_percent_pre) / top_i_warpage_percent_pre
@@ -107,19 +128,19 @@ def consistency(batch_sol,batch_pre):
 
     print(f"[solution batch] {np.count_nonzero(batch_part_stdev_percent_sol<passing_percent)}/27 parts below {passing_percent}% part stdev relative to part mean")
 
-    batch_part_mean_pre = np.mean(batch_pre, axis=1, keepdims=True)
+    batch_part_mean_pre = np.mean(batch_pre, axis=2, keepdims=True)
     # standard deviation of each part (relative to the part's mean corner height)
-    batch_part_stdev_pre = np.std(batch_pre, axis=1, keepdims=True)
+    batch_part_stdev_pre = np.std(batch_pre, axis=2, keepdims=True)
 
     batch_part_stdev_percent_pre = (batch_part_stdev_pre / batch_part_mean_pre) * 100
 
-    print(f"[initial batch] {np.count_nonzero(batch_part_stdev_percent_pre<passing_percent)}/9 parts below {passing_percent}% part stdev relative to part mean")
+    print(f"[initial batch] {np.count_nonzero(batch_part_stdev_percent_pre<passing_percent)}/27 parts below {passing_percent}% part stdev relative to part mean")
 
 
 def first_pass_yield(batch_sol,batch_pre):
 
     print(f"[solution batch] {np.count_nonzero(np.min(batch_sol,axis=2) > 18.5)}/27 parts, {(np.count_nonzero(np.min(batch_sol,axis=2) > 18.5))/0.27}% FPY")
-    print(f"[initial batch] {np.count_nonzero(np.min(batch_pre,axis=1) > 18.5)}/9 parts, {(np.count_nonzero(np.min(batch_pre,axis=1) > 18.5))/0.09}% FPY")
+    print(f"[initial batch] {np.count_nonzero(np.min(batch_pre,axis=2) > 18.5)}/27 parts, {(np.count_nonzero(np.min(batch_pre,axis=2) > 18.5))/0.27}% FPY")
 
 
 # print(batch_part_corner_deviation_percent_sol)
@@ -144,8 +165,8 @@ global_mean_sol = np.mean(batch_sol)
 global_stdev_sol = np.std(batch_sol)
 global_mean_pre = np.mean(batch_pre)
 global_stdev_pre = np.std(batch_pre)
-batch_mean_sol = np.mean(batch_sol, axis=(1, 2), keepdims=True)
-batch_stdev_sol = np.std(batch_sol, axis=(1, 2), keepdims=True)
+batch_mean_sol = np.mean(batch_sol)
+batch_stdev_sol = np.std(batch_sol)
 mean_improve = (global_mean_sol - global_mean_pre) / global_mean_pre
 stdev_improve = abs(global_stdev_sol - global_stdev_pre) / global_stdev_pre
 
@@ -153,5 +174,6 @@ print(f"Solution Mean:{global_mean_sol},Solution Stdev:,{global_stdev_sol}")
 print(f"Previous Mean:{global_mean_pre},Previous Stdev:,{global_stdev_pre}")
 print(f"Mean Improvement: {mean_improve*100} %, Stdev Improment: {stdev_improve*100}%")
 
-# warpage_prevention(batch_sol,batch_pre)
+warpage_prevention(batch_sol,batch_pre)
 first_pass_yield(batch_sol, batch_pre)
+consistency(batch_sol,batch_pre)
