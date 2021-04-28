@@ -1,5 +1,5 @@
 # Fall 2020 ME450 Team 27 - Code 
-Team 27 Sensor Code
+Team 27: Heated Bed Temperature Aqusision System Sensor Code
 
 |Final/ -> Folder will hold both the arduino code and the pyhton code
 
