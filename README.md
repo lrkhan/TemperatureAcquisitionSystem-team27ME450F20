@@ -1,4 +1,4 @@
-# Fall 2020 ME450 Team 27 - Code 
+# Temperature Acquisition System (Fall 2020 ME450 Team 27 - Senior Design Project)
 Team 27: Heated Bed Temperature Acquisition System Sensor Code
 
 |Final/ -> Folder will hold both the arduino code and the pyhton code
