@@ -1,18 +1,35 @@
 # Temperature Acquisition System (Fall 2020 ME450 Team 27 - Senior Design Project)
 Team 27: Heated Bed Temperature Acquisition System Sensor Code
 
-|Final/ -> Folder will hold both the arduino code and the pyhton code
-
-|-   Adruino Code/ -> ADC Code supplied from Maxim Integraded and modified for our use
-
-|-   Raspberry Pi Code/ -> Pyhton code used to communicate and store data from from the ADC
-
-|--    gSheets/ -> Python Code for Viszulization using Google Sheets and Charts (API Credentials Needed)
-
-|--    standard/ -> Python code for reading from ADC and witing to csv file
-
-|---     standard/ -> Folder for standard output files [date].csv
-
-|oldCode/ -> Old Pyhton code used for refences and as a sandpit to test code
-
-|-   spiFiles/ -> Python code to communite with the ADC via SPI Protocall
+## File Hierarchy
+.
+├── Final/ 
+│   ├── Arduino Code/
+│   │   ├── Hello_MAX11131.cpp
+│   │   ├── MAX11131.cpp
+│   │   ├── MAX11131.h
+│   │   ├── MAX11131_Hello.ino
+│   │   ├── README.md
+│   │   ├── mI_readme.adoc
+│   │   └── sketch.json
+│   ├── Raspberry Pi Code/
+│   │   ├── gsheets/
+│   │   │   ├── README.md
+│   │   │   └── ardTemp.py 
+│   │   ├── standard/
+│   │   │   ├── saveData/
+│   │   │   │   └── README.md
+│   │   │   ├── README.md
+│   │   │   └── oldCode.py
+│   │   └── README.md
+│   └── README.md
+├── oldCode/
+│   ├── spiFiles/
+│   │   ├── spt.py
+│   │   └── test.py
+│   ├── README.md
+│   ├── ardTemp.py
+│   ├── tempSensor.py
+│   └── test.py
+├── README.md
+└── data_processing.py
