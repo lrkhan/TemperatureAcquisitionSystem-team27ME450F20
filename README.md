@@ -47,7 +47,7 @@ made using [tree.nathanfriend.io](https://tree.nathanfriend.io/?s=(%27options!(%
 ![Physical Wiring - Whole ](./media/pWire3.JPG "Physical Wiring - 3/3")
 
 ### IT'S ALIVE (Physical Function Example)
-![Functioning Physical Example](./media/lfuncvtioningExample.gif "Functioning Physical Example")
+![Functioning Physical Example](./media/functioningExample.gif "Functioning Physical Example")
 
 ## Printed Parts - Solution Results
 The image below is an example of wapage we saw without our solution (left) and the same part (same gcode, material, and quadrant) with our solution of an enclousure and localized heating elements (right). 
