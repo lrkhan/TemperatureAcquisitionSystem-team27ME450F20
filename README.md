@@ -50,7 +50,7 @@ made using [tree.nathanfriend.io](https://tree.nathanfriend.io/?s=(%27options!(%
 ![Functioning Physical Example](./media/functioningExample.gif "Functioning Physical Example")
 
 ## Printed Parts - Solution Results
-The image below is an example of wapage we saw without our solution (left) and the same part (same gcode, material, and quadrant) with our solution of an enclousure and localized heating elements (right). 
+The image below is an example of warpage we saw without our solution (left) and the same part (same gcode, material, and quadrant) with our solution of an enclosure and localized heating elements (right). 
 ![Part Warpage Solution Results](./media/partWarp.jpg "Part Warpage - Solution Results")
 
 ## Data
